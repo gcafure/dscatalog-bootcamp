@@ -52,7 +52,6 @@ public class ProductRepositoryTests {
 
 		Assertions.assertNotNull(product.getId());
 		Assertions.assertEquals(countTotalProducts + 1, product.getId());
-
 	}
 
 	@Test
