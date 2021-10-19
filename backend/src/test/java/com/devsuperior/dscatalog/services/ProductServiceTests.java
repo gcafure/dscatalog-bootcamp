@@ -1,7 +1,5 @@
 package com.devsuperior.dscatalog.services;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.util.List;
 import java.util.Optional;
 
