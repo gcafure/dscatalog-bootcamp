@@ -14,7 +14,7 @@ public class UserDTO implements Serializable {
 	
 	private Long id;
 
-	@NotBlank(message = "Campo obrigatório")
+	@NotBlank(message = "Nome obrigatório")
 	private String firstName;
 	private String lastName;
 	

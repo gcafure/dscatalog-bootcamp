@@ -19,7 +19,7 @@ public class ProductDTO implements Serializable {
 
 	private Long id;
 	
-	@Size(min = 2, max = 30, message = "Deve ter entre 5 e 60 caracteres")
+	@Size(min = 3, max = 30, message = "Deve ter entre 5 e 60 caracteres")
 	@NotBlank
 	private String name;
 	
