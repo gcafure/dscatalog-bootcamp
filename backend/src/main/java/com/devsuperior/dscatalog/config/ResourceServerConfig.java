@@ -14,6 +14,12 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 	@Autowired
+<<<<<<< Updated upstream
+=======
+	private Environment env;
+
+	@Autowired
+>>>>>>> Stashed changes
 	private JwtTokenStore tokenStore;
 
 	private static final String[] PUBLIC = { "/oauth/token" };
@@ -27,13 +33,25 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		resources.tokenStore(tokenStore);
 	}
 
+	// h2 console test
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
+<<<<<<< Updated upstream
 		http.authorizeRequests().antMatchers(PUBLIC).permitAll()
 		.antMatchers(HttpMethod.GET, OPERATOR_OR_ADMIN).permitAll()
 		.antMatchers(OPERATOR_OR_ADMIN).hasAnyRole("OPERATOR", "ADMIN")
 		.antMatchers(ADMIN).hasAnyRole(ADMIN)
 		.anyRequest().authenticated();
+=======
+
+		if (Arrays.asList(env.getActiveProfiles()).contains("test")) {
+			http.headers().frameOptions().disable();
+		}
+
+		http.authorizeRequests().antMatchers(PUBLIC).permitAll().antMatchers(HttpMethod.GET, OPERATOR_OR_ADMIN)
+				.permitAll().antMatchers(OPERATOR_OR_ADMIN).hasAnyRole("OPERATOR", "ADMIN").antMatchers(ADMIN)
+				.hasAnyRole(ADMIN).anyRequest().authenticated();
+>>>>>>> Stashed changes
 	}
 
 }
