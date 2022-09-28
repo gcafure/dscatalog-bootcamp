@@ -1,7 +1,10 @@
 package com.devsuperior.dscatalog.config;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -14,12 +17,9 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 	@Autowired
-<<<<<<< Updated upstream
-=======
 	private Environment env;
 
 	@Autowired
->>>>>>> Stashed changes
 	private JwtTokenStore tokenStore;
 
 	private static final String[] PUBLIC = { "/oauth/token" };
@@ -36,13 +36,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	// h2 console test
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-<<<<<<< Updated upstream
-		http.authorizeRequests().antMatchers(PUBLIC).permitAll()
-		.antMatchers(HttpMethod.GET, OPERATOR_OR_ADMIN).permitAll()
-		.antMatchers(OPERATOR_OR_ADMIN).hasAnyRole("OPERATOR", "ADMIN")
-		.antMatchers(ADMIN).hasAnyRole(ADMIN)
-		.anyRequest().authenticated();
-=======
+		http.authorizeRequests().antMatchers(PUBLIC).permitAll().antMatchers(HttpMethod.GET, OPERATOR_OR_ADMIN)
+				.permitAll().antMatchers(OPERATOR_OR_ADMIN).hasAnyRole("OPERATOR", "ADMIN").antMatchers(ADMIN)
+				.hasAnyRole(ADMIN).anyRequest().authenticated();
 
 		if (Arrays.asList(env.getActiveProfiles()).contains("test")) {
 			http.headers().frameOptions().disable();
@@ -51,7 +47,5 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		http.authorizeRequests().antMatchers(PUBLIC).permitAll().antMatchers(HttpMethod.GET, OPERATOR_OR_ADMIN)
 				.permitAll().antMatchers(OPERATOR_OR_ADMIN).hasAnyRole("OPERATOR", "ADMIN").antMatchers(ADMIN)
 				.hasAnyRole(ADMIN).anyRequest().authenticated();
->>>>>>> Stashed changes
 	}
-
 }
