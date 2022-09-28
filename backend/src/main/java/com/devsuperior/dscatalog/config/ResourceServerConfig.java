@@ -18,7 +18,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 	@Autowired
 	private Environment env;
-	
+
 	@Autowired
 	private JwtTokenStore tokenStore;
 
@@ -27,27 +27,23 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	private static final String[] OPERATOR_OR_ADMIN = { "/products/**", "/categories/**" };
 
 	private static final String[] ADMIN = { "/users/**" };
-	
-	
 
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
 		resources.tokenStore(tokenStore);
 	}
 
+	// h2 console test
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		
-		//Console do h2 liberado
+
 		if (Arrays.asList(env.getActiveProfiles()).contains("test")) {
 			http.headers().frameOptions().disable();
 		}
-		
-		http.authorizeRequests().antMatchers(PUBLIC).permitAll()
-		.antMatchers(HttpMethod.GET, OPERATOR_OR_ADMIN).permitAll()
-		.antMatchers(OPERATOR_OR_ADMIN).hasAnyRole("OPERATOR", "ADMIN")
-		.antMatchers(ADMIN).hasAnyRole(ADMIN)
-		.anyRequest().authenticated();
+
+		http.authorizeRequests().antMatchers(PUBLIC).permitAll().antMatchers(HttpMethod.GET, OPERATOR_OR_ADMIN)
+				.permitAll().antMatchers(OPERATOR_OR_ADMIN).hasAnyRole("OPERATOR", "ADMIN").antMatchers(ADMIN)
+				.hasAnyRole(ADMIN).anyRequest().authenticated();
 	}
 
 }
